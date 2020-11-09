@@ -22,7 +22,8 @@
       </p>
       <p v-if="nameNotAdded">
         Put your name:
-        <input type="text" :value="playerName" @keydown.enter="setPlayerName">
+        <input type="text" v-model="playerName" @keydown.enter="setPlayerName">
+        <button @click="setPlayerNameButton">Change Name</button>
       </p>
       <h2>Monster Health</h2>
       <div class="healthbar">

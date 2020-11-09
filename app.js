@@ -90,6 +90,9 @@ const app = Vue.createApp({
       this.playerName = event.target.value;
       this.nameNotAdded = false;
     },
+    setPlayerNameButton() {
+      this.nameNotAdded = false;
+    },
     attackMonster() {
       this.countValuesEveryRound();
       const attackValue = getRandomValue(5, 12);
