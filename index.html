@@ -17,15 +17,22 @@
   </header>
   <div id="game">
     <section id="monster" class="container">
+      <p>
+        Score: {{timesWin}} - {{timesLost}}
+      </p>
+      <p v-if="nameNotAdded">
+        Put your name:
+        <input type="text" :value="playerName" @keydown.enter="setPlayerName">
+      </p>
       <h2>Monster Health</h2>
       <div class="healthbar">
-        <div :class="healthbar__value" :style="monsterBarStyles"></div>
+        <div v-model:class="Monster__healthbar__value" :style="monsterBarStyles"></div>
       </div>
     </section>
     <section id="player" class="container">
-      <h2>Your Health</h2>
+      <h2>{{ playerName }} Health</h2>
       <div class="healthbar">
-        <div :class="healthbar__value" :style="playerBarStyles"></div>
+        <div v-model:class="Player__healthbar__value" :style="playerBarStyles"></div>
       </div>
     </section>
     <section class="container" v-if="winner">

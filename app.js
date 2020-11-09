@@ -11,6 +11,12 @@ const app = Vue.createApp({
       specialAttackCounter: 3,
       winner: null,
       logMessages: [],
+      Monster__healthbar__value: "healthbar__value",
+      Player__healthbar__value: "healthbar__value",
+      timesWin: 0,
+      timesLost: 0,
+      playerName: "Player",
+      nameNotAdded: true,
     };
   },
   computed: {
@@ -18,16 +24,27 @@ const app = Vue.createApp({
       if (this.monsterHealth < 0) {
         return { width: "0%" };
       }
+      if (this.monsterHealth <= 40 && this.monsterHealth > 20) {
+        this.Monster__healthbar__value = "healthbar__value__orange";
+      } else if (this.monsterHealth <= 20 && this.monsterHealth > 0) {
+        this.Monster__healthbar__value = "healthbar__value__red";
+      } else {
+        this.Monster__healthbar__value = "healthbar__value";
+      }
       return { width: this.monsterHealth + "%" };
     },
     playerBarStyles() {
       if (this.playerHealth < 0) {
         return { width: "0%" };
       }
+      if (this.playerHealth <= 40 && this.playerHealth > 20) {
+        this.Player__healthbar__value = "healthbar__value__orange";
+      } else if (this.playerHealth <= 20 && this.playerHealth > 0) {
+        this.Player__healthbar__value = "healthbar__value__red";
+      } else {
+        this.Player__healthbar__value = "healthbar__value";
+      }
       return { width: this.playerHealth + "%" };
-    },
-    healthbar__value() {
-      return "healthbar__value";
     },
     specialAttackDisabled() {
       if (this.specialAttackCounter > 2) {
@@ -45,6 +62,7 @@ const app = Vue.createApp({
       } else if (value <= 0) {
         // Player lost
         this.winner = "monster";
+        this.timesLost++;
       }
     },
     monsterHealth(value) {
@@ -54,6 +72,7 @@ const app = Vue.createApp({
       } else if (value <= 0) {
         // Monster lost
         this.winner = "player";
+        this.timesWin++;
       }
     },
   },
@@ -64,6 +83,12 @@ const app = Vue.createApp({
       this.winner = null;
       this.currentRound = 0;
       (this.specialAttackCounter = 3), (this.logMessages = []);
+      this.Monster__healthbar__value = "healthbar__value";
+      this.Player__healthbar__value = "healthbar__value";
+    },
+    setPlayerName(event) {
+      this.playerName = event.target.value;
+      this.nameNotAdded = false;
     },
     attackMonster() {
       this.countValuesEveryRound();
